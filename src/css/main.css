@@ -1,0 +1,22 @@
+.App {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 500px;
+}
+
+body .modal {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  bottom: 40px;
+  display: block;
+  left: 40px;
+  outline: none;
+  overflow: auto;
+  padding: 20px;
+  position: fixed;
+  right: 40px;
+  top: 40px;
+}

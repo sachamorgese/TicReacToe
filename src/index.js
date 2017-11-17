@@ -1,5 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './js/main'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+import App from './components/main'
+import reducers from './reducers/main'
+
+const createStoreWithMiddleware = applyMiddleware()(createStore)
+
+export const store = createStoreWithMiddleware(reducers)
+
+ReactDOM.render(
+  // Provider connects react and redux
+  <Provider store={store}>
+    <App />
+  </Provider>
+  , document.getElementById('root'),
+)

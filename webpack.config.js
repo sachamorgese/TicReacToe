@@ -1,7 +1,7 @@
 module.exports = {
-  entry: './src/index.components',
+  entry: './src/index.js',
   output: {
-    filename: 'bundle.components'
+    filename: 'bundle.js'
   },
   module: {
     rules: [

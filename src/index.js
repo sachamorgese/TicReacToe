@@ -8,7 +8,12 @@ import reducers from './reducers/main'
 
 const createStoreWithMiddleware = applyMiddleware()(createStore)
 
-export const store = createStoreWithMiddleware(reducers)
+/* eslint-disable no-underscore-dangle */
+export const store = createStoreWithMiddleware(
+  reducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+)
+/* eslint-enable */
 
 ReactDOM.render(
   // Provider connects react and redux

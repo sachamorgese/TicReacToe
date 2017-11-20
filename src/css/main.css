@@ -1,0 +1,89 @@
+@font-face {
+  font-family: oilBats;
+  src: url(https://cdn.rawgit.com/TheOmegaBlack/FreeCodeCampStuff/8d94a434/TicTacToe/OilBats.ttf);
+}
+
+body {
+  background-color: rgba(10, 10, 10, 0.9);
+}
+
+h1 {
+  color: white;
+  font-size: 70px;
+}
+
+h3 {
+  color: #aaa;
+  font-size: 45px;
+}
+
+#info-box {
+  color: white;
+  font-size: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+}
+
+.header {
+  font-family: oilBats, monospace;
+  text-align: center;
+}
+
+.grid-container {
+  background: #555;
+  border: solid white 6px;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  height: 600px;
+  margin: 50px auto 0;
+  overflow: hidden;
+  width: 600px;
+}
+
+.square {
+  align-items: center;
+  border: 1px solid black;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.square9 {
+  border-left: 0;
+  border-top: 0;
+}
+
+.square8 {
+  border-top: 0;
+}
+
+.square7 {
+  border-right: 0;
+  border-top: 0;
+}
+
+.square6 {
+  border-left: 0;
+}
+
+.square4 {
+  border-right: 0;
+}
+
+.square3 {
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.square2 {
+  border-bottom: 0;
+}
+
+.square1 {
+  border-bottom: 0;
+  border-right: 0;
+}

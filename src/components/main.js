@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
+
+import Grid from '../containers/grid'
+
 import '../css/main.css'
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/main.js</code> and save to reload.
-        </p>
+        <div className="header">
+          <h1>TicReacToe!</h1>
+          <h3>FreeCodeCamp project</h3>
+          <div id="info-box">
+            <p>by Sacha Morgese!</p>
+          </div>
+        </div>
+        <Grid className="grid-container" />
       </div>
     )
   }

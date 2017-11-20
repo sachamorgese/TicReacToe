@@ -15,8 +15,8 @@
   },
   "scripts": {
     "build": "webpack",
-    "eslint": "eslint src/index.js src/js",
-    "eslint:fix": "eslint src/index.js src/js --fix",
+    "eslint": "eslint src",
+    "eslint:fix": "eslint src --fix",
     "fix": "run-s eslint:fix stylefmt",
     "flow": "flow",
     "lint": "run-s eslint stylelint",
@@ -56,5 +56,6 @@
     "webpack-dev-server": "^2.9.4"
   },
   "author": "Sacha Morgese",
-  "license": "ISC"
+  "license": "ISC",
+  "eslintIgnore": ["src/css/", "src/img"]
 }

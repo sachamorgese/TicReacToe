@@ -62,7 +62,7 @@
     "no-use-before-define": ["error", "nofunc"],
     "no-unused-vars": ["error", { "args": "none" }],
 
-    // Node.js
+    // Node.components
     "callback-return": "off",
     "global-require": "off",
     "no-path-concat": "error",

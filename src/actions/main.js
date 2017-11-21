@@ -1,4 +1,5 @@
 export const ADD_MOVE = 'add_move'
+export const NEXT_MOVE = 'next_move'
 
 export function addMove(index, sign) {
   return {
@@ -7,5 +8,12 @@ export function addMove(index, sign) {
       index,
       sign,
     },
+  }
+}
+
+export function nextMove(playerTurn) {
+  return {
+    type: NEXT_MOVE,
+    payload: playerTurn,
   }
 }

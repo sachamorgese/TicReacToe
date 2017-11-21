@@ -1,16 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addMove } from '../actions/main'
+import { addMove, nextMove } from '../actions/main'
 import { Cross, Circle } from '../components/signs'
+import { cpuTurn } from '../js/game_functions'
 
 class Grid extends Component {
+  componentDidUpdate() {
+    if (!this.props.isPlayerTurn) {
+      const CPUMove = cpuTurn(this.props.turnNumber, this.props.turn, this.props.cpuSign)
+      this.props.addMove(CPUMove, this.props.cpuSign)
+      this.props.nextMove(this.props.isPlayerTurn)
+    }
+  }
+  clickHandler(index) {
+    this.props.nextMove(this.props.isPlayerTurn)
+    this.props.addMove(index, this.props.playerSign)
+  }
   makeCell(value, index) {
     return (
       <div
         key={index}
         className={`square square${index}`}
-        onClick={value === '' ?
+        onClick={
+          this.props.isPlayerTurn &&
+          value === '' ?
           () => this.clickHandler(index) :
         null
         }
@@ -25,9 +39,6 @@ class Grid extends Component {
       </div>
     )
   }
-  clickHandler(index) {
-    this.props.addMove(index, 'cross')
-  }
   render() {
     if (this.props) {
       return (
@@ -41,12 +52,20 @@ class Grid extends Component {
 }
 
 function mapStateToProps(state) {
-  const { turns, turnNumber } = state.turnsReducer
-  return { turn: turns[turnNumber] }
+  const { turns, turnNumber } = state.turns
+  const { playerSign, cpuSign } = state.games
+  const { isPlayerTurn } = state.whoseTurn
+  return {
+    turn: turns[turnNumber],
+    turnNumber,
+    playerSign,
+    cpuSign,
+    isPlayerTurn,
+  }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addMove }, dispatch)
+  return bindActionCreators({ addMove, nextMove }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Grid)

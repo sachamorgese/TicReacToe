@@ -43,6 +43,43 @@ h3 {
   width: 600px;
 }
 
+.selection-screen {
+  background: #555;
+  border: solid white 6px;
+  border-radius: 20px;
+  display: grid;
+  font-family: oilBats, monospace;
+  font-size: 50px;
+  grid-template-areas:
+    ". picker picker picker ."
+    "cross cross . circle circle "
+    ". . . . .";
+  grid-template-columns: 1fr 1fr 0.5fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
+  height: 600px;
+  margin: 50px auto 0;
+  overflow: hidden;
+  padding-top: 28px;
+  text-align: center;
+  width: 600px;
+}
+
+.picker {
+  grid-area: picker;
+}
+
+.cross {
+  grid-area: cross;
+}
+
+.circle {
+  grid-area: circle;
+}
+
+.grid {
+  visibility: hidden;
+}
+
 .square {
   align-items: center;
   border: 1px solid black;

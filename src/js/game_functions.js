@@ -1,13 +1,13 @@
- const winPat = [
-   [1, 2, 3],
-   [1, 4, 7],
-   [1, 5, 9],
-   [2, 5, 8],
-   [3, 5, 7],
-   [3, 6, 9],
-   [4, 5, 6],
-   [7, 8, 9],
- ]
+const winPat = [
+  [1, 2, 3],
+  [1, 4, 7],
+  [1, 5, 9],
+  [2, 5, 8],
+  [3, 5, 7],
+  [3, 6, 9],
+  [4, 5, 6],
+  [7, 8, 9],
+]
 
 // function winner(winner) {
 //   writing.text(winner + " WIN");
@@ -19,128 +19,136 @@ function randomSet(set) {
   return set[rndm]
 }
 
-function checkRisk(turn) {
- for (var i = 0; i < 8; i++) {
-   if( )
- }
-return [false, 0];
+function checkRisk(turn, cpuSign, playerSign) {
+  let result = [false, 0]
+  winPat.forEach((pattern) => {
+    let free = 0
+    let check = 0
+    pattern.forEach((square) => {
+      if (turn[square] === playerSign) {
+        check++
+      } else if (turn[square] !== cpuSign) {
+        free = square
+      }
+    })
+    if (check === 2 && free !== 0) {
+      result = [true, free]
+    }
+  })
+  return result
 }
 
-// function specificThreat(){
-//   var situation = [];
-//   checkPlayer(situation);
-//   var first, second;
-//   if (situation[0] > situation[1]) {
-//     first = situation[1];
-//     second = situation[0];
-//   }
-//   else {
-//     first = situation[0];
-//     second = situation[1];
-//   }
-//   switch (first) {
-//     case 1:
-//       if (second == 6) {
-//         return [true, randomSet([2, 3])];
-//       }
-//       else if (second == 8) {
-//         return [true, randomSet([4, 7])]
-//       }
-//       else if (second == 9) {
-//         return [true, randomSet([2, 4, 6, 8])]
-//       }
-//     case 2:
-//       if (second == 7) {
-//         return [true, randomSet([1, 4])]
-//       }
-//       else if (second == 9) {
-//         return [true, randomSet([3, 6])]
-//       }
-//     case 3:
-//       if (second == 4) {
-//         return [true, randomSet([1, 2])]
-//       }
-//       else if (second == 7) {
-//         return [true, randomSet([2, 4, 6, 8])]
-//       }
-//       if (second == 8) {
-//         return [true, randomSet([6, 9])]
-//       }
-//     case 4:
-//       if (second == 9) {
-//         return [true, randomSet([7, 8])]
-//       }
-//     case 5:
-//       if (second == 1 && squares[9] == "CPU") {
-//         return [true, randomSet([7, 3])]
-//       }
-//       else if (second == 3 && squares[7] == "CPU") {
-//         return [true, randomSet([1, 9])]
-//       }
-//       else if (second == 7 && squares[3] == "CPU") {
-//         return [true, randomSet([1, 9])]
-//       }
-//       else if (second == 9 && squares[1] == "CPU") {
-//         return [true, randomSet([3, 7])]
-//       }
-//     case 6:
-//       if (second == 7) {
-//         return [true, randomSet([8, 9])]
-//       }
-//     default:
-//       return [false, 0];
-//   }
-//
-// }
-//
-function checkChance(turn, cpuSign) {
-  const go = 0;
-  winPath.map(value => {
-  
-  })
- for (var i = 0; i < 8; i++) {
-     var free = 0;
-     var freeCheck = [];
-    var check = 0;
-     for (var j = 0; j < 3; j++) {
-       var square = winPat[i][j];
-       if (squares[square] == "CPU") {
-         check++;
-      } else if (squares[square] == "") {
-         freeCheck.push(square);
-         free = square;
-       }
-       if (check == 2 && free != 0) {
-         return [true, free];
+function specificThreat(turn, cpuSign, playerSign) {
+  const situation = []
+  checkPlayer(situation, playerSign)
+  let first
+  let second
+  if (situation[0] > situation[1]) {
+    [second, first] = situation
+  } else {
+    [first, second] = situation
+  }
+  switch (first) {
+    case 1:
+      if (second === 6) {
+        return [true, randomSet([2, 3])]
+      } else if (second === 8) {
+        return [true, randomSet([4, 7])]
+      } else if (second === 9) {
+        return [true, randomSet([2, 4, 6, 8])]
       }
-       if (turn == 3 || turn == 4){
-         if (check == 1 && freeCheck.length == 2){
-           return [true, randomSet(freeCheck)];
-         }
-       }
-     }
-   }
-   return [false, 0];
- }
+      break
+    case 2:
+      if (second === 7) {
+        return [true, randomSet([1, 4])]
+      } else if (second === 9) {
+        return [true, randomSet([3, 6])]
+      }
+      break
+    case 3:
+      if (second === 4) {
+        return [true, randomSet([1, 2])]
+      } else if (second === 7) {
+        return [true, randomSet([2, 4, 6, 8])]
+      }
+      if (second === 8) {
+        return [true, randomSet([6, 9])]
+      }
+      break
+    case 4:
+      if (second === 9) {
+        return [true, randomSet([7, 8])]
+      }
+      break
+    case 5:
+      if (second === 1 && turn[9] === cpuSign) {
+        return [true, randomSet([7, 3])]
+      } else if (second === 3 && turn[7] === cpuSign) {
+        return [true, randomSet([1, 9])]
+      } else if (second === 7 && turn[3] === cpuSign) {
+        return [true, randomSet([1, 9])]
+      } else if (second === 9 && turn[1] === cpuSign) {
+        return [true, randomSet([3, 7])]
+      }
+      break
+    case 6:
+      if (second === 7) {
+        return [true, randomSet([8, 9])]
+      }
+      break
+    default:
+      return [false, 0]
+  }
+}
 
-// function checkPlayer(situation) {
-//   for (var i = 1; i < 10; i++) {
-//     if (squares[i] == "player") {
-//       situation.push(i);
-//     }
-//   }
-//   return true;
-// }
-//
-// function checkSit(situation) {
-//   for (var i = 1; i < 10; i++) {
-//     if (squares[i] == "") {
-//       situation.push(i);
-//     }
-//   }
-//   return true;
-// }
-//
+function checkChance(turn, turnNumber, cpuSign) {
+  let result = [false, 0]
+  winPat.forEach((pattern) => {
+    let free = 0
+    const freeCheck = []
+    let check = 0
+    for (let i = 0; i < 3; i++) {
+      const square = pattern[i]
+      if (turn[square] === cpuSign) {
+        check++
+      } else if (turn[square] === '') {
+        freeCheck.push(square)
+        free = square
+      }
+      if (check === 2 && free !== 0) {
+        result = [true, free]
+        break
+      }
+      if (turn === 3 && check === 1 && free === 2) {
+        return randomSet[freeCheck]
+      }
+      if (turnNumber === 3 || turnNumber === 4) {
+        if (check === 1 && freeCheck.length === 2) {
+          result = [true, randomSet(freeCheck)]
+          break
+        }
+      }
+    }
+  })
+  return result
+}
+
+function checkPlayer(turn, situation, playerSign) {
+  turn.forEach((square) => {
+    if (square === playerSign) {
+      situation.push(square)
+    }
+  })
+}
+
+function checkSit(turn, situation) {
+  turn.forEach((square, i) => {
+    if (square === '') {
+      situation.push(i)
+    }
+  })
+}
+
 // function checkWin(currentPlayer) {
 //   for (var i = 0; i < 8; i++) {
 //     var check = true;
@@ -180,7 +188,7 @@ function checkChance(turn, cpuSign) {
 //   }
 // }
 
-export function cpuTurn(turnNumber, tempTurn, cpuSign) {
+export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
   const turn = [null, ...tempTurn]
   switch (turnNumber) {
     case 2: {
@@ -189,162 +197,59 @@ export function cpuTurn(turnNumber, tempTurn, cpuSign) {
       }
       return randomSet([1, 3, 7, 9])
     }
-    case 4:
-       const chance = checkChance(turn, cpuSign)
-       const risk = checkRisk(turn, cpuSign)
-//     const solution = specificThreat()
-//       if (solution[0]) {
-//         var i = solution[1]
-//         var square = '#square' + i
-//         if (isCircle) {
-//           cross('CPU', $(square), i)
-//         } else if (isCross) {
-//           circle('CPU', $(square), i)
-//         }
-//       } else if (risk[0]) {
-//         var i = risk[1]
-//         var square = '#square' + i
-//         if (isCircle) {
-//           cross('CPU', $(square), i)
-//         } else if (isCross) {
-//           circle('CPU', $(square), i)
-//         }
-//       } else if (chance[0]) {
-//         var i = chance[1]
-//         var square = '#square' + i
-//         if (isCircle) {
-//           cross('CPU', $(square), i)
-//         } else if (isCross) {
-//           circle('CPU', $(square), i)
-//         }
-//       } else {
-//         var situation = []
-//         checkSit(situation)
-//         var i = randomSet(situation)
-//         var square = '#square' + i
-//         if (isCircle) {
-//           cross('CPU', $(square), i)
-//         } else if (isCross) {
-//           circle('CPU', $(square), i)
-//         }
-//       }
-//       break
-//     case 6:
-//     case 8:
-//       var chance = checkChance(turn)
-//       var risk = checkRisk()
-//       var noChance = checkChance(4)
-//       if (chance[0]) {
-//         var i = chance[1]
-//         var square = '#square' + i
-//         if (isCircle) {
-//           cross('CPU', $(square), i)
-//         } else if (isCross) {
-//           circle('CPU', $(square), i)
-//         }
-//       } else if (risk[0]) {
-//         var i = risk[1]
-//         var square = '#square' + i
-//         if (isCircle) {
-//           cross('CPU', $(square), i)
-//         } else if (isCross) {
-//           circle('CPU', $(square), i)
-//         }
-//       } else if (noChance[0]) {
-//         var i = noChance[1]
-//         var square = '#square' + i
-//         if (isCircle) {
-//           cross('CPU', $(square), i)
-//         } else if (isCross) {
-//           circle('CPU', $(square), i)
-//         }
-//       } else {
-//         var situation = []
-//         checkSit(situation)
-//         var i = randomSet(situation)
-//         var square = '#square' + i
-//         if (isCircle) {
-//           cross('CPU', $(square), i)
-//         } else if (isCross) {
-//           circle('CPU', $(square), i)
-//         }
-//       }
-//       break
-//     case 1:
-//       var i = randomSet([1, 3, 5, 7, 9])
-//       var square = '#square' + i
-//       if (isCircle) {
-//         cross('CPU', $(square), i)
-//       } else if (isCross) {
-//         circle('CPU', $(square), i)
-//       }
-//       break
-//     case 3:
-//       if (squares[5] == '') {
-//         if (isCircle) {
-//           cross('CPU', $('#square5'), 5)
-//         } else if (isCross) {
-//           circle('CPU', $('#square5'), 5)
-//         }
-//         break
-//       }
-//     case 5:
-//     case 7:
-//     case 9:
-//       var chance = checkChance(turn)
-//       var risk = checkRisk()
-//       var noChance = checkChance(4)
-//       if (chance[0]) {
-//         var i = chance[1]
-//         var square = '#square' + i
-//         if (isCircle) {
-//           cross('CPU', $(square), i)
-//         } else if (isCross) {
-//           circle('CPU', $(square), i)
-//         }
-//       } else if (risk[0]) {
-//         var i = risk[1]
-//         var square = '#square' + i
-//         if (isCircle) {
-//           cross('CPU', $(square), i)
-//         } else if (isCross) {
-//           circle('CPU', $(square), i)
-//         }
-//       } else if (noChance[0]) {
-//         var i = noChance[1]
-//         var square = '#square' + i
-//         if (isCircle) {
-//           cross('CPU', $(square), i)
-//         } else if (isCross) {
-//           circle('CPU', $(square), i)
-//         }
-//       } else {
-//         var situation = []
-//         checkSit(situation)
-//         var i = randomSet(situation)
-//         var square = '#square' + i
-//         if (isCircle) {
-//           cross('CPU', $(square), i)
-//         } else if (isCross) {
-//           circle('CPU', $(square), i)
-//         }
-//       }
-//       break
-//     default:
-//       break
-//   }
-//   if (turn > 4 && checkWin('CPU')) {
-//     winner('CPU')
-//     setTimeout(startAgain, 2000)
-//   } else if (turn == 9) {
-//     writing.text('DRAW!')
-//     setTimeout(startAgain, 1000)
-//   } else {
-//     writing.text('Player turn!')
-//     isCPUTurn = false
-//     isPlayerTurn = true
-//   }
-// }
+    case 4: {
+      const chance = checkChance(turn, turnNumber, cpuSign)
+      const risk = checkRisk(turn, cpuSign, playerSign)
+      const solution = specificThreat(turn, cpuSign, playerSign)
+      if (solution[0]) {
+        return solution[1]
+      } else if (risk[0]) {
+        return risk[1]
+      } else if (chance[0]) {
+        return chance[1]
+      }
+      const situation = []
+      checkSit(situation)
+      return randomSet(situation)
+    }
+    case 1:
+      return randomSet([1, 3, 5, 7, 9])
+    case 3:
+      if (turn[5] === '') return 5
+      return checkChance(turn, turnNumber, cpuSign)[1]
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9: {
+      const chance = checkChance(turn, turnNumber, cpuSign)
+      if (chance[0]) return chance[1]
+      const risk = checkRisk(turn, cpuSign, playerSign)
+      if (risk[0]) return risk[1]
+      const noChance = checkChance(turn, 4, cpuSign)
+      if (noChance[0]) return noChance[1]
+      const situation = []
+      checkSit(turn, situation)
+      if (situation.length === 1) {
+        return situation[0]
+      }
+      return randomSet(situation)
+    }
+    default:
+      break
+  }
+  // if (turn > 4 && checkWin(cpuSign)) {
+  //   winner('CPU')
+  //   setTimeout(startAgain, 2000)
+  // } else if (turn == 9) {
+  //   writing.text('DRAW!')
+  //   setTimeout(startAgain, 1000)
+  // } else {
+  //   writing.text('Player turn!')
+  //   isCPUTurn = false
+  //   isPlayerTurn = true
+  // }
+}
 //
 // function startAgain() {
 //   isPlayerTurn = false

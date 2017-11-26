@@ -144,30 +144,6 @@ function checkSit(turn, situation) {
   })
 }
 
-// function checkWin(currentPlayer) {
-//   for (var i = 0; i < 8; i++) {
-//     var check = true;
-//     for (var j = 0; j < 3; j++) {
-//       var square = winPat[i][j];
-//       if (squares[square] != currentPlayer) {
-//         check = false;
-//         break;
-//       }
-//     }
-//     if (!check) {
-//       continue;
-//     } else {
-//       for (var j = 0; j < 3; j++) {
-//         var n = winPat[i][j];
-//         var square = "#square" + n;
-//         $(square).css("background-color", "blue");
-//       }
-//       return true;
-//     }
-//   }
-//   return false;
-// }
-//
 export function choosingStarter() {
   return randomSet(['player', 'CPU'])
 }
@@ -176,9 +152,7 @@ export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
   const turn = [null, ...tempTurn]
   switch (turnNumber) {
     case 2: {
-      if (turn[5] === '') {
-        return 5
-      }
+      if (turn[5] === '') return 5
       return randomSet([1, 3, 7, 9])
     }
     case 4: {
@@ -199,7 +173,7 @@ export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
     case 1:
       return randomSet([1, 3, 5, 7, 9])
     case 3:
-      if (turn[5] === '') return 5
+      // if (turn[5] === '') return 5
       return checkChance(turn, turnNumber, cpuSign)[1]
     case 5:
     case 6:
@@ -223,64 +197,3 @@ export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
       break
   }
 }
-//
-// function startAgain() {
-//   isPlayerTurn = false
-//   isCPUTurn = false
-//   turn = 0
-//   squares = new squarePrototype()
-//   for (let i = 1; i < 10; i++) {
-//     const square = '#square' + i
-//     $(square).html('')
-//     $(square).css('background-color', '')
-//   }
-//   writing.text('Deciding who starts...')
-//   setTimeout(whoStarts, 1000)
-// }
-//
-//
-
-//
-// $('.square').click(function () {
-//   if (isPlayerTurn) {
-//     const number = $(this).data('number')
-//     if (squares[number] === '' && isCircle) {
-//       circle('player', $(this), number)
-//       turn++
-//       if (turn > 4) {
-//         if (checkWin('player')) {
-//           winner('player')
-//           setTimeout(startAgain, 3000)
-//         } else if (turn == 9) {
-//           writing.text('DRAW!')
-//           setTimeout(startAgain, 3000)
-//         } else {
-//           writing.text('CPU turn!')
-//           setTimeout(CPUTurn, 1000)
-//         }
-//       } else {
-//         writing.text('CPU turn!')
-//         setTimeout(CPUTurn, 1000)
-//       }
-//     } else if (squares[number] === '' && isCross) {
-//       cross('player', $(this), number)
-//
-//       turn++
-//       if (turn > 4) {
-//         if (checkWin('player')) {
-//           winner('player')
-//           setTimeout(startAgain, 3000)
-//         } else if (turn == 9) {
-//           writing.text('DRAW!')
-//           setTimeout(startAgain, 3000)
-//         } else {
-//           writing.text('CPU turn!')
-//           setTimeout(CPUTurn, 1000)
-//         }
-//       } else {
-//         writing.text('CPU turn!')
-//         setTimeout(CPUTurn, 1000)
-//       }
-//     }
-//   }
-// })

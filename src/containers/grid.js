@@ -1,15 +1,15 @@
+/* eslint-disable linebreak-style */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import '../css/main.css'
-
-import { addMove, nextMove, cpuMove, chooseSign, decidingTime, whoStarts } from '../actions/main'
+import { addMove, nextMove, cpuMove, chooseSign, decidingTime, whoStarts, sendWinner, sendDraw, newGame }
+  from '../actions/main'
 import { Cross, Circle } from '../components/signs'
 import { winPat, cpuTurn, choosingStarter } from '../js/game_functions'
 
 const paragrapher = (props) => {
-  if (props.winner.length !== 0) return true
+  if (props.winner.length > 0) return props.winner[0] === props.playerSign ? 'PLAYER WINS!' : 'CPU WINS!'
   if (props.turnNumber >= 10) return 'Draw!'
   if (props.signSelection) return 'by Sacha Morgese!'
   if (props.deciding) return 'Deciding who starts...'
@@ -22,21 +22,29 @@ const paragrapher = (props) => {
 
 class Grid extends Component {
   componentDidUpdate() {
-    if (this.props.isPlayerTurn === '' && !this.props.deciding) {
-      this.props.whoStarts(choosingStarter())
+    if (this.props.winner.length === 0 && !this.props.draw && !this.props.thinking) {
+      if (this.props.isPlayerTurn === '' && !this.props.deciding) {
+        this.props.whoStarts(choosingStarter())
+      }
+      if (this.props.isPlayerTurn === false && !this.props.thinking && this.props.gameStarted) {
+        const CPUMove = cpuTurn(this.props.turnNumber, this.props.turn, this.props.cpuSign, this.props.playerSign)
+        this.props.cpuMove(CPUMove, this.props.cpuSign)
+      }
+      if (this.props.turnNumber >= 10) {
+        this.props.sendDraw()
+        this.props.newGame()
+      }
+      if (this.props.turnNumber > 4) {
+        const turn = ['', ...this.props.turn]
+        const winner = winPat.filter((value) =>
+          turn[value[0]] !== '' && turn[value[0]] === turn[value[1]] &&
+          turn[value[0]] === turn[value[2]])
+        if (winner.length > 0) {
+          this.props.sendWinner(winner[0])
+          this.props.newGame()
+        }
+      }
     }
-    if (this.props.isPlayerTurn === false && !this.props.thinking && this.props.gameStarted) {
-      const CPUMove = cpuTurn(this.props.turnNumber, this.props.turn, this.props.cpuSign, this.props.playerSign)
-      this.props.cpuMove(CPUMove, this.props.cpuSign)
-    }
-    if (winPat) return true
-    // if (this.props.turnNumber > 4) {
-    //   const turn = ['', ...this.props.turn]
-    //   const winner = winPat.filter((value) =>
-    //     turn[value[0]] !== '' && turn[value[0]] === turn[value[1]] &&
-    //     turn[value[0]] === turn[value[2]])
-    //   if (winner)(console.log('WINNER!'))
-    // }
   }
   clickHandler(index) {
     this.props.nextMove(this.props.isPlayerTurn)
@@ -46,10 +54,11 @@ class Grid extends Component {
     this.props.chooseSign(sign)
   }
   makeCell(value, index) {
+    const classes = `square square${index} ${this.props.winner.indexOf(index) >= 0 ? 'winning-square' : ''}`
     return (
       <div
         key={index}
-        className={`square square${index}`}
+        className={classes}
         onClick={
           this.props.isPlayerTurn &&
           value === '' ?
@@ -100,7 +109,7 @@ class Grid extends Component {
 function mapStateToProps(state) {
   const { turns, turnNumber, thinking } = state.turns
   const {
-    playerSign, cpuSign, signSelection, winner, gameStarted,
+    playerSign, cpuSign, signSelection, winner, draw, gameStarted,
   } = state.games
   const { isPlayerTurn, deciding } = state.whoseTurn
   return {
@@ -114,12 +123,13 @@ function mapStateToProps(state) {
     thinking,
     winner,
     gameStarted,
+    draw,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    addMove, nextMove, cpuMove, chooseSign, decidingTime, whoStarts,
+    addMove, nextMove, cpuMove, chooseSign, decidingTime, whoStarts, sendWinner, newGame, sendDraw,
   }, dispatch)
 }
 

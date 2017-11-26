@@ -1,12 +1,13 @@
-import { CHOOSE_SIGN, WHO_STARTS } from '../actions/main'
+import { CHOOSE_SIGN, WHO_STARTS, WINNER, START_NEW_GAME, DRAW } from '../actions/main'
 
 const initGamesState =
   {
-    gameNumber: 0,
+    gameNumber: 1,
     playerSign: '',
     cpuSign: '',
     signSelection: true,
     winner: [],
+    draw: false,
     gameStarted: false,
   }
 
@@ -14,15 +15,35 @@ export default function gamesReducer(state = initGamesState, action) {
   switch (action.type) {
     case CHOOSE_SIGN:
       return {
+        ...initGamesState,
         gameNumber: state.gameNumber,
         playerSign: action.payload.playerSign,
         cpuSign: action.payload.cpuSign,
         signSelection: false,
-        winner: [],
         gameStarted: state.gameStarted,
       }
     case WHO_STARTS:
       return { ...state, gameStarted: action.payload.gameStarted }
+    case DRAW:
+      return {
+        ...state,
+        draw: true,
+        gameStarted: false,
+      }
+    case WINNER:
+      return {
+        ...state,
+        winner: action.payload,
+        gameStarted: false,
+      }
+    case START_NEW_GAME:
+      return {
+        ...initGamesState,
+        playerSign: state.playerSign,
+        cpuSign: state.cpuSign,
+        gameNumber: state.gameNumber + 1,
+        signSelection: false,
+      }
     default:
       return state
   }

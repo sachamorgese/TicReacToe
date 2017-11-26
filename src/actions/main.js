@@ -5,6 +5,9 @@ export const DECIDING = 'deciding'
 export const WHO_STARTS = 'who_starts'
 export const THINKING = 'thinking'
 export const ADD_MOVE_CPU = 'add_move_cpu'
+export const WINNER = 'winner'
+export const START_NEW_GAME = 'start_new_game'
+export const DRAW = 'draw'
 
 export function addMove(index, sign, increaseTurn) {
   return {
@@ -84,5 +87,32 @@ function start(starter) {
   return {
     type: WHO_STARTS,
     payload,
+  }
+}
+
+export function sendWinner(winner) {
+  return {
+    type: WINNER,
+    payload: winner,
+  }
+}
+
+export function sendDraw() {
+  return {
+    type: DRAW,
+  }
+}
+
+function startNewGame() {
+  return {
+    type: START_NEW_GAME,
+  }
+}
+
+export function newGame() {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(startNewGame())
+    }, 3000)
   }
 }

@@ -1,4 +1,4 @@
-import { ADD_MOVE, ADD_MOVE_CPU, THINKING } from '../actions/main'
+import { ADD_MOVE, ADD_MOVE_CPU, THINKING, START_NEW_GAME } from '../actions/main'
 
 const initTurnsState =
   {
@@ -30,6 +30,9 @@ export default function turnsReducer(state = initTurnsState, action) {
     }
     case THINKING: {
       return { ...state, thinking: true }
+    }
+    case START_NEW_GAME: {
+      return { ...initTurnsState }
     }
     default:
       return state

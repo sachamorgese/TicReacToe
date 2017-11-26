@@ -1,4 +1,4 @@
-import { ADD_MOVE_CPU, DECIDING, NEXT_MOVE, WHO_STARTS } from '../actions/main'
+import { ADD_MOVE_CPU, DECIDING, NEXT_MOVE, WHO_STARTS, WINNER, DRAW } from '../actions/main'
 
 const initWhoseTurn =
   {
@@ -26,6 +26,12 @@ export default function whoseTurnReducer(state = initWhoseTurn, action) {
     case ADD_MOVE_CPU:
       return {
         isPlayerTurn: action.payload.isPlayerTurn,
+        deciding: false,
+      }
+    case DRAW:
+    case WINNER:
+      return {
+        isPlayerTurn: '',
         deciding: false,
       }
     default:

@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 
 import Grid from '../containers/grid'
 
-import '../css/main.css'
-
 class App extends Component {
   render() {
     return (

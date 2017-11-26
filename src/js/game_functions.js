@@ -1,4 +1,4 @@
-const winPat = [
+export const winPat = [
   [1, 2, 3],
   [1, 4, 7],
   [1, 5, 9],
@@ -9,11 +9,6 @@ const winPat = [
   [7, 8, 9],
 ]
 
-// function winner(winner) {
-//   writing.text(winner + " WIN");
-//   isPlayerTurn = false;
-// }
-//
 function randomSet(set) {
   const rndm = Math.floor(Math.random() * set.length)
   return set[rndm]
@@ -173,20 +168,9 @@ function checkSit(turn, situation) {
 //   return false;
 // }
 //
-// function whoStarts() {
-//   var starts = randomSet(["player", "CPU"]);
-//   if (starts == "player") {
-//     isPlayerTurn = true;
-//     writing.text("Player starts!")
-//
-//   } else if (starts == "CPU") {
-//     writing.text("CPU starts!")
-//     isCPUTurn = true;
-//   }
-//   if (isCPUTurn) {
-//     setTimeout(CPUTurn, 1000);
-//   }
-// }
+export function choosingStarter() {
+  return randomSet(['player', 'CPU'])
+}
 
 export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
   const turn = [null, ...tempTurn]
@@ -238,17 +222,6 @@ export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
     default:
       break
   }
-  // if (turn > 4 && checkWin(cpuSign)) {
-  //   winner('CPU')
-  //   setTimeout(startAgain, 2000)
-  // } else if (turn == 9) {
-  //   writing.text('DRAW!')
-  //   setTimeout(startAgain, 1000)
-  // } else {
-  //   writing.text('Player turn!')
-  //   isCPUTurn = false
-  //   isPlayerTurn = true
-  // }
 }
 //
 // function startAgain() {
@@ -265,27 +238,8 @@ export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
 //   setTimeout(whoStarts, 1000)
 // }
 //
-// var isPlayerTurn = false
-// var isCPUTurn = false
-// var isCross = false
-// var isCircle = false
-// var turn = 0
-// var squares = new squarePrototype()
-// var writing = $('#info-box')
 //
-// $('.selection-grid').click(function () {
-//   console.log($(this).attr('id'))
-//   if ($(this).attr('id') == 'circle') {
-//     isCircle = true
-//   } else {
-//     isCross = true
-//   }
-//   $('.selection-screen').fadeOut(1000, () => {
-//     $('.grid').css('visibility', 'visible').hide().fadeIn('slow')
-//   })
-//   writing.text('Deciding who starts...')
-//   setTimeout(whoStarts, 1000)
-// })
+
 //
 // $('.square').click(function () {
 //   if (isPlayerTurn) {

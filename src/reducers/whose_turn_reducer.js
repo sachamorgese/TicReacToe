@@ -7,7 +7,6 @@ const initWhoseTurn =
   }
 
 export default function whoseTurnReducer(state = initWhoseTurn, action) {
-  console.log(action.payload)
   switch (action.type) {
     case NEXT_MOVE:
       return {

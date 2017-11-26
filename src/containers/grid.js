@@ -22,21 +22,21 @@ const paragrapher = (props) => {
 
 class Grid extends Component {
   componentDidUpdate() {
-    if (this.props.isPlayerTurn === '') {
+    if (this.props.isPlayerTurn === '' && !this.props.deciding) {
       this.props.whoStarts(choosingStarter())
     }
     if (this.props.isPlayerTurn === false && !this.props.thinking && this.props.gameStarted) {
-      console.log(this.props, 'here yo')
       const CPUMove = cpuTurn(this.props.turnNumber, this.props.turn, this.props.cpuSign, this.props.playerSign)
       this.props.cpuMove(CPUMove, this.props.cpuSign)
     }
-    if (this.props.turnNumber > 4) {
-      const turn = ['', ...this.props.turn]
-      const winner = winPat.filter((value) =>
-        turn[value[0]] !== '' && turn[value[0]] === turn[value[1]] &&
-        turn[value[0]] === turn[value[2]])
-      if(winner)(console.log('WINNER!'))
-    }
+    if (winPat) return true
+    // if (this.props.turnNumber > 4) {
+    //   const turn = ['', ...this.props.turn]
+    //   const winner = winPat.filter((value) =>
+    //     turn[value[0]] !== '' && turn[value[0]] === turn[value[1]] &&
+    //     turn[value[0]] === turn[value[2]])
+    //   if (winner)(console.log('WINNER!'))
+    // }
   }
   clickHandler(index) {
     this.props.nextMove(this.props.isPlayerTurn)

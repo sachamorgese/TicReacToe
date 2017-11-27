@@ -73,8 +73,8 @@ class Grid extends Component {
         }>
         {!value ? '' :
           value === 'circle' ?
-            <Circle circleClass="" /> :
-            <Cross crossClass="" />}
+            <Circle circleClass="" onClick={() => true} /> :
+            <Cross crossClass="" onClick={() => true} />}
       </div>
     )
   }

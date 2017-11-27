@@ -36,60 +36,37 @@ function checkRisk(turn, cpuSign, playerSign) {
 function specificThreat(turn, cpuSign, playerSign) {
   const situation = []
   checkPlayer(situation, playerSign)
-  let first
-  let second
-  if (situation[0] > situation[1]) {
-    [second, first] = situation
-  } else {
-    [first, second] = situation
-  }
+  const [first, second] = situation.sort()
   switch (first) {
     case 1:
-      if (second === 6) {
-        return [true, randomSet([2, 3])]
-      } else if (second === 8) {
-        return [true, randomSet([4, 7])]
-      } else if (second === 9) {
-        return [true, randomSet([2, 4, 6, 8])]
-      }
+      if (second === 6) return [true, randomSet([2, 3])]
+      if (second === 8) return [true, randomSet([4, 7])]
+      if (second === 9) return [true, randomSet([2, 4, 6, 8])]
       break
     case 2:
-      if (second === 7) {
-        return [true, randomSet([1, 4])]
-      } else if (second === 9) {
-        return [true, randomSet([3, 6])]
-      }
+      if (second === 4) return [true, randomSet([1, 3, 7])]
+      if (second === 6) return [true, randomSet([1, 3, 9])]
+      if (second === 7) return [true, randomSet([1, 4])]
+      if (second === 9) return [true, randomSet([3, 6])]
       break
     case 3:
-      if (second === 4) {
-        return [true, randomSet([1, 2])]
-      } else if (second === 7) {
-        return [true, randomSet([2, 4, 6, 8])]
-      }
-      if (second === 8) {
-        return [true, randomSet([6, 9])]
-      }
+      if (second === 4) return [true, randomSet([1, 2])]
+      if (second === 7) return [true, randomSet([2, 4, 6, 8])]
+      if (second === 8) return [true, randomSet([6, 9])]
       break
     case 4:
-      if (second === 9) {
-        return [true, randomSet([7, 8])]
-      }
+      if (second === 8) return [true, randomSet([1, 7, 9])]
+      if (second === 9) return [true, randomSet([7, 8])]
       break
     case 5:
-      if (second === 1 && turn[9] === cpuSign) {
-        return [true, randomSet([7, 3])]
-      } else if (second === 3 && turn[7] === cpuSign) {
-        return [true, randomSet([1, 9])]
-      } else if (second === 7 && turn[3] === cpuSign) {
-        return [true, randomSet([1, 9])]
-      } else if (second === 9 && turn[1] === cpuSign) {
-        return [true, randomSet([3, 7])]
-      }
+      if (second === 1 && turn[9] === cpuSign) return [true, randomSet([7, 3])]
+      if (second === 3 && turn[7] === cpuSign) return [true, randomSet([1, 9])]
+      if (second === 7 && turn[3] === cpuSign) return [true, randomSet([1, 9])]
+      if (second === 9 && turn[1] === cpuSign) return [true, randomSet([3, 7])]
       break
     case 6:
-      if (second === 7) {
-        return [true, randomSet([8, 9])]
-      }
+      if (second === 7) return [true, randomSet([8, 9])]
+      if (second === 8) return [true, randomSet([3, 7, 9])]
       break
     default:
       return [false, 0]
@@ -157,15 +134,11 @@ export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
     }
     case 4: {
       const chance = checkChance(turn, turnNumber, cpuSign)
+      if (chance[0]) return chance[1]
       const risk = checkRisk(turn, cpuSign, playerSign)
+      if (risk[0]) return risk[1]
       const solution = specificThreat(turn, cpuSign, playerSign)
-      if (solution[0]) {
-        return solution[1]
-      } else if (risk[0]) {
-        return risk[1]
-      } else if (chance[0]) {
-        return chance[1]
-      }
+      if (solution[0]) return solution[1]
       const situation = []
       checkSit(situation)
       return randomSet(situation)
@@ -173,7 +146,7 @@ export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
     case 1:
       return randomSet([1, 3, 5, 7, 9])
     case 3:
-      // if (turn[5] === '') return 5
+      if (turn[5] === '') return 5
       return checkChance(turn, turnNumber, cpuSign)[1]
     case 5:
     case 6:

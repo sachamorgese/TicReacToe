@@ -1,6 +1,6 @@
 @font-face {
   font-family: oilBats;
-  src: url(https://cdn.rawgit.com/TheOmegaBlack/FreeCodeCampStuff/8d94a434/TicTacToe/OilBats.ttf);
+  src: url(./OilBats.ttf);
 }
 
 * {

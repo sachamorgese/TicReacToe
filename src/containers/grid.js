@@ -9,7 +9,9 @@ import { Cross, Circle } from '../components/signs'
 import { winPat, cpuTurn, choosingStarter } from '../js/game_functions'
 
 const paragrapher = (props) => {
-  if (props.winner.length > 0) return props.winner[0] === props.playerSign ? 'PLAYER WINS!' : 'CPU WINS!'
+  if (props.winner.length > 0) {
+    return props.turn[props.winner[0] + 1] === props.playerSign ? 'PLAYER WINS!' : 'CPU WINS!'
+  }
   if (props.turnNumber >= 10) return 'Draw!'
   if (props.signSelection) return 'by Sacha Morgese!'
   if (props.deciding) return 'Deciding who starts...'
@@ -23,14 +25,7 @@ const paragrapher = (props) => {
 class Grid extends Component {
   componentDidUpdate() {
     if (this.props.winner.length === 0 && !this.props.draw && !this.props.thinking) {
-      if (this.props.isPlayerTurn === '' && !this.props.deciding) {
-        this.props.whoStarts(choosingStarter())
-      }
-      if (this.props.isPlayerTurn === false && !this.props.thinking && this.props.gameStarted) {
-        const CPUMove = cpuTurn(this.props.turnNumber, this.props.turn, this.props.cpuSign, this.props.playerSign)
-        this.props.cpuMove(CPUMove, this.props.cpuSign)
-      }
-      if (this.props.turnNumber >= 10) {
+      if (!this.props.deciding && this.props.turnNumber >= 10) {
         this.props.sendDraw()
         this.props.newGame()
       }
@@ -44,11 +39,18 @@ class Grid extends Component {
           this.props.newGame()
         }
       }
+      if (this.props.isPlayerTurn === false && !this.props.thinking && this.props.gameStarted) {
+        const CPUMove = cpuTurn(this.props.turnNumber, this.props.turn, this.props.cpuSign, this.props.playerSign)
+        this.props.cpuMove(CPUMove, this.props.cpuSign)
+      }
+      if (this.props.isPlayerTurn === '' && !this.props.deciding) {
+        this.props.whoStarts(choosingStarter())
+      }
     }
   }
   clickHandler(index) {
-    this.props.nextMove(this.props.isPlayerTurn)
     this.props.addMove(index, this.props.playerSign, true)
+    this.props.nextMove(this.props.isPlayerTurn)
   }
   signClickHandler(sign) {
     this.props.chooseSign(sign)

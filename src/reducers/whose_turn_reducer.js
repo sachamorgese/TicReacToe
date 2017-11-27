@@ -25,7 +25,7 @@ export default function whoseTurnReducer(state = initWhoseTurn, action) {
       }
     case ADD_MOVE_CPU:
       return {
-        isPlayerTurn: action.payload.isPlayerTurn,
+        isPlayerTurn: state.isPlayerTurn !== '' ? action.payload.isPlayerTurn : '',
         deciding: false,
       }
     case DRAW:

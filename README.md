@@ -1,43 +1,21 @@
-# Sacha's ReactRedux's starter pack
-### Absolutely not inspired by Stephen Grider's pretty useful [ReduxSimpleStarter](https://github.com/StephenGrider/ReduxSimpleStarter).
-
-I created it for my next projects and it includes all the stuff I absolutely need: (Also, this is my first ReadMe.md)
-
-    * React
-    * Redux
-    * React-Redux
-    * React-router and react-router-dom
-    * React-promise
-    * Axios
-    * Babel
-    * Eslint (react, airbnb, flowtype)
-    * Stylelint
-    * Stylefmt
-    * Webpack, Webpack-dev-server
-    * Lodash
-
-It is configured to be used right away.
+# TicReacToe
+### A version of TicTacToe made with React and Redux. Started with my own [ReactReduxStarterPack](https://github.com/TheOmegaBlack/SachasReactReduxStarterPack).
 
 ## Getting Started
 
 ```
-> git clone https://github.com/TheOmegaBlack/SachasReactReduxStarterPack.git
-> cd SachasReactReduxStarterPack
+> git clone https://github.com/TheOmegaBlack/TicReacToe.git
+> cd TicReacToe
 > npm install
 > npm start
+> go to localhost:8080 on your browser
 ```
 
-And you should be ready to go!
-All the files are included in /src. There are different folders for js, css and images.
+## About this game
+It works in a pretty straightforward way. I didn't really add comments but it should be easy to understand what everything does.
+The game restarts after 3 seconds. The CPU takes 1 second to (pretend to) think. You can change those values by simply editing the action in 'actions/main.js'.
 
-## Commands
-
-```
-> npm start             // Starts webpack-dev-server
-> npm run build         // Starts webpack (outputs in root/bundle.js)
-> npm run eslint        // Runs eslints for src/index.js and all the js files in src/js and its sub-folders.
-> npm run eslint:fix    // Runs eslint --fix (fixes some errors in your js files)
-> npm run fix           // Runs both eslint:fix and stylemft
-> npm run flow          // Runs flow
-> npm run stylefmt      // Runs stylefmt on all the files inside src/css/ (fixes some errors in your css files)
-> npm run stylelint     // Runs stylelint on all the files inside src/css/
+## What's next
+Add a time machine function that allows you to go back to the previous state (the state is already structured for this)
+Add the number of the current game (the state already keeps the value)
+Thinking about adding a counter to count the number of win, lose and draw, but it shouldn't be possible to win so...

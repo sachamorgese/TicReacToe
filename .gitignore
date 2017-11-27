@@ -21,3 +21,6 @@ yarn-error.log*
 
 .gitignore
 .idea/
+.DS_Store
+bundle.js
+src/.DS_Store

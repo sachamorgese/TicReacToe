@@ -101,6 +101,7 @@ class Grid extends Component {
           <div className="grid-container">
             {this.props.turn.map((v, i) => this.makeCell(v, i + 1))}
           </div>}
+          <h3 className="bottom">{!this.props.signSelection && `Round ${this.props.gameNumber}`}</h3>
         </div>
       )
     }
@@ -111,7 +112,7 @@ class Grid extends Component {
 function mapStateToProps(state) {
   const { turns, turnNumber, thinking } = state.turns
   const {
-    playerSign, cpuSign, signSelection, winner, draw, gameStarted,
+    playerSign, cpuSign, signSelection, winner, draw, gameStarted, gameNumber,
   } = state.games
   const { isPlayerTurn, deciding } = state.whoseTurn
   return {
@@ -126,6 +127,7 @@ function mapStateToProps(state) {
     winner,
     gameStarted,
     draw,
+    gameNumber,
   }
 }
 

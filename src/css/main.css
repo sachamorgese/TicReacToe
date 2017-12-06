@@ -18,7 +18,7 @@ body {
 h1 {
   color: white;
   font-size: 70px;
-  margin: 0;
+  margin: 20px 0 10px;
 }
 
 h3 {
@@ -39,33 +39,28 @@ h3 {
   text-align: center;
 }
 
-.grid-container {
+.grid-base {
   background: #555;
   border: solid white 6px;
   border-radius: 20px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
   height: 600px;
-  margin: 50px auto 0;
+  margin: 30px auto 0;
   overflow: hidden;
   width: 600px;
 }
 
+.grid-container {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
 .selection-screen {
-  background: #555;
-  border: solid white 6px;
-  border-radius: 20px;
-  display: grid;
   font-family: oilBats, monospace;
   font-size: 50px;
   grid-template: ". picker picker picker ." 1fr "cross cross . circle circle " 2fr ". . . . ." 1fr / 1fr 1fr 0.5fr 1fr 1fr;
-  height: 600px;
-  margin: 50px auto 0;
-  overflow: hidden;
   padding-top: 28px;
   text-align: center;
-  width: 600px;
 }
 
 .picker {
@@ -134,7 +129,39 @@ h3 {
 }
 
 .bottom {
+  margin: 0 auto;
+  text-align: center;
+  width: 600px;
+}
+
+.bottom h3 {
   font-family: oilBats, monospace;
   padding-top: 20px;
-  text-align: center;
+}
+
+.bottom ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.bottom li {
+  height: 50px;
+  width: 33.3%;
+}
+
+.timeTravel--button {
+  background: white;
+  border: solid 1px black;
+  font-family: oilBats, monospace;
+  font-size: 24px;
+  height: 100%;
+  padding-top: 14px;
+  width: 100%;
+}
+
+.clickable {
+  cursor: pointer;
 }

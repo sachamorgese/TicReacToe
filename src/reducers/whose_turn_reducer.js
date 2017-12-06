@@ -1,4 +1,4 @@
-import { ADD_MOVE_CPU, DECIDING, NEXT_MOVE, WHO_STARTS, WINNER, DRAW } from '../actions/main'
+import { ADD_MOVE_CPU, DECIDING, NEXT_MOVE, WHO_STARTS, WINNER, DRAW, TRAVEL_BACK } from '../actions/main'
 
 const initWhoseTurn =
   {
@@ -28,6 +28,11 @@ export default function whoseTurnReducer(state = initWhoseTurn, action) {
         isPlayerTurn: state.isPlayerTurn !== '' ? action.payload.isPlayerTurn : '',
         deciding: false,
       }
+    case TRAVEL_BACK: {
+      return {
+        isPlayerTurn: (action.payload.oldTurnNumber % 2 !== 0) === action.payload.playerStarted,
+      }
+    }
     case DRAW:
     case WINNER:
       return {

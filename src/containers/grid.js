@@ -84,6 +84,13 @@ class Grid extends Component {
       </div>
     )
   }
+  makeList(index, turns) {
+    const list = []
+    for (let i = 1; i < index; i++) {
+      list.push(<li key={i}><button>{`State n.${i}`}</button></li>)
+    }
+    return list
+  }
   render() {
     if (this.props) {
       const paragraph = (paragrapher(this.props))
@@ -108,6 +115,11 @@ class Grid extends Component {
             {this.props.turn.map((v, i) => this.makeCell(v, i + 1))}
           </div>}
           <h3 className="bottom">{!this.props.signSelection && `Round ${this.props.gameNumber}`}</h3>
+          <ul>
+            {
+              this.makeList(this.props.turnNumber, this.props.turnsObject)
+            }
+          </ul>
         </div>
       )
     }
@@ -122,6 +134,7 @@ function mapStateToProps(state) {
   } = state.games
   const { isPlayerTurn, deciding } = state.whoseTurn
   return {
+    turnsObject: turns,
     turn: turns[turnNumber],
     turnNumber,
     playerSign,

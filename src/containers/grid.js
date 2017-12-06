@@ -24,8 +24,11 @@ const paragrapher = (props) => {
 
 class Grid extends Component {
   componentDidUpdate() {
+    let draw = false
+    let win = false
     if (this.props.winner.length === 0 && !this.props.draw && !this.props.thinking) {
       if (!this.props.deciding && this.props.turnNumber >= 10) {
+        draw = true
         this.props.sendDraw()
         this.props.newGame()
       }
@@ -35,16 +38,19 @@ class Grid extends Component {
           turn[value[0]] !== '' && turn[value[0]] === turn[value[1]] &&
           turn[value[0]] === turn[value[2]])
         if (winner.length > 0) {
+          win = true
           this.props.sendWinner(winner[0])
           this.props.newGame()
         }
       }
-      if (this.props.isPlayerTurn === false && !this.props.thinking && this.props.gameStarted) {
-        const CPUMove = cpuTurn(this.props.turnNumber, this.props.turn, this.props.cpuSign, this.props.playerSign)
-        this.props.cpuMove(CPUMove, this.props.cpuSign)
-      }
-      if (this.props.isPlayerTurn === '' && !this.props.deciding) {
-        this.props.whoStarts(choosingStarter())
+      if (!draw && !win) {
+        if (this.props.isPlayerTurn === false && !this.props.thinking && this.props.gameStarted) {
+          const CPUMove = cpuTurn(this.props.turnNumber, this.props.turn, this.props.cpuSign, this.props.playerSign)
+          this.props.cpuMove(CPUMove, this.props.cpuSign)
+        }
+        if (this.props.isPlayerTurn === '' && !this.props.deciding) {
+          this.props.whoStarts(choosingStarter())
+        }
       }
     }
   }

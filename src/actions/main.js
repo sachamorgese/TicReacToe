@@ -8,6 +8,7 @@ export const ADD_MOVE_CPU = 'add_move_cpu'
 export const WINNER = 'winner'
 export const START_NEW_GAME = 'start_new_game'
 export const DRAW = 'draw'
+export const TRAVEL_BACK = 'travel_back'
 
 export function addMove(index, sign, increaseTurn) {
   return {
@@ -114,5 +115,16 @@ export function newGame() {
     setTimeout(() => {
       dispatch(startNewGame())
     }, 3000)
+  }
+}
+
+export function travelBack(oldTurnNumber, currentTurnNumber) {
+  const playerStarted = currentTurnNumber % 2 !== 0
+  return {
+    type: TRAVEL_BACK,
+    payload: {
+      oldTurnNumber,
+      playerStarted,
+    },
   }
 }

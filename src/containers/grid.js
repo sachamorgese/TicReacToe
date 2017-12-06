@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { addMove, nextMove, cpuMove, chooseSign, decidingTime, whoStarts, sendWinner, sendDraw, newGame }
+import { addMove, nextMove, cpuMove, chooseSign, decidingTime, whoStarts, sendWinner, sendDraw, newGame, travelBack }
   from '../actions/main'
 import { Cross, Circle } from '../components/signs'
 import { winPat, cpuTurn, choosingStarter } from '../js/game_functions'
@@ -61,8 +61,13 @@ class Grid extends Component {
   signClickHandler(sign) {
     this.props.chooseSign(sign)
   }
+  timeTravel(i) {
+    this.props.travelBack(i, this.props.turnNumber)
+  }
   makeCell(value, index) {
-    const classes = `square square${index} ${this.props.winner.indexOf(index) >= 0 ? 'winning-square' : ''}`
+    const classes = `square square${index}
+    ${this.props.isPlayerTurn ? 'clickable' : ''}
+    ${this.props.winner.indexOf(index) >= 0 ? 'winning-square' : ''}`
     return (
       <div
         key={index}
@@ -87,7 +92,16 @@ class Grid extends Component {
   makeList(index, turns) {
     const list = []
     for (let i = 1; i < index; i++) {
-      list.push(<li key={i}><button>{`State n.${i}`}</button></li>)
+      const li = (
+        <li key={i}>
+          <div
+            className={`timeTravel--button ${this.props.isPlayerTurn ? 'clickable' : ''}`}
+            onClick={this.props.isPlayerTurn ? () => this.timeTravel(i) : null}
+            onKeyDown={this.props.isPlayerTurn ? () => this.timeTravel(i) : null}>
+            {i !== 1 ? `Turn ${i}` : 'Game Start'}
+          </div>
+        </li>)
+      list.push(li)
     }
     return list
   }
@@ -104,22 +118,24 @@ class Grid extends Component {
             </div>
           </div>
           {this.props.signSelection &&
-          <div className="selection-screen">
+          <div className="grid-base selection-screen">
             <p className="picker">Pick one:</p>
             <Circle circleClass="circle" onClick={(e) => this.signClickHandler(e)} />
             <Cross crossClass="cross" onClick={(e) => this.signClickHandler(e)} />
           </div>
           }
           {!this.props.signSelection &&
-          <div className="grid-container">
+          <div className="grid-base grid-container">
             {this.props.turn.map((v, i) => this.makeCell(v, i + 1))}
           </div>}
-          <h3 className="bottom">{!this.props.signSelection && `Round ${this.props.gameNumber}`}</h3>
-          <ul>
-            {
-              this.makeList(this.props.turnNumber, this.props.turnsObject)
-            }
-          </ul>
+          <div className="bottom">
+            <h3>{!this.props.signSelection && `Round ${this.props.gameNumber}`}</h3>
+            <ul>
+              {
+                this.makeList(this.props.turnNumber, this.props.turnsObject)
+              }
+            </ul>
+          </div>
         </div>
       )
     }
@@ -152,7 +168,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    addMove, nextMove, cpuMove, chooseSign, decidingTime, whoStarts, sendWinner, newGame, sendDraw,
+    addMove, nextMove, cpuMove, chooseSign, decidingTime, whoStarts, sendWinner, newGame, sendDraw, travelBack,
   }, dispatch)
 }
 

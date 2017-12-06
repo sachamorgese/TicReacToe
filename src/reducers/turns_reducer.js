@@ -1,4 +1,4 @@
-import { ADD_MOVE, ADD_MOVE_CPU, THINKING, START_NEW_GAME } from '../actions/main'
+import { ADD_MOVE, ADD_MOVE_CPU, THINKING, START_NEW_GAME, TRAVEL_BACK } from '../actions/main'
 
 const initTurnsState =
   {
@@ -28,11 +28,22 @@ export default function turnsReducer(state = initTurnsState, action) {
         thinking: false,
       }
     }
+    case START_NEW_GAME: {
+      return { ...initTurnsState }
+    }
     case THINKING: {
       return { ...state, thinking: true }
     }
-    case START_NEW_GAME: {
-      return { ...initTurnsState }
+    case TRAVEL_BACK: {
+      const turns = {}
+      for (let i = 1; i <= action.payload.oldTurnNumber; i++) {
+        turns[i] = state.turns[i]
+      }
+      return {
+        ...state,
+        turnNumber: action.payload.oldTurnNumber,
+        turns,
+      }
     }
     default:
       return state

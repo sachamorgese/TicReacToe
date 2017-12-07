@@ -1,47 +1,5 @@
 import _ from 'lodash'
-
-export const winPat = [
-  [1, 2, 3],
-  [1, 4, 7],
-  [1, 5, 9],
-  [2, 5, 8],
-  [3, 5, 7],
-  [3, 6, 9],
-  [4, 5, 6],
-  [7, 8, 9],
-]
-
-const cpuThreePatterns = {
-  patternA: [0, 1, 9],
-  patternB: [0, 3, 7],
-}
-
-const cpuFivePatterns = [
-  {
-    cpuSigns: [1, 3],
-    playerSign: 2,
-    playerOptionA: 7,
-    playerOptionB: 9,
-  },
-  {
-    cpuSigns: [1, 7],
-    playerSign: 4,
-    playerOptionA: 3,
-    playerOptionB: 9,
-  },
-  {
-    cpuSigns: [3, 9],
-    playerSign: 6,
-    playerOptionA: 1,
-    playerOptionB: 7,
-  },
-  {
-    cpuSigns: [7, 9],
-    playerSign: 8,
-    playerOptionA: 1,
-    playerOptionB: 3,
-  },
-]
+import { winPat, fiveDefendPatterns, cpuCenterPatterns, cpuFivePatterns, cpuThreePatterns } from './game_const'
 
 function randomSet(set) {
   const rndm = Math.floor(Math.random() * set.length)
@@ -69,7 +27,7 @@ function checkRisk(turn, cpuSign, playerSign) {
 
 function turnFourThreat(turn, cpuSign, playerSign) {
   const situation = []
-  checkPlayer(situation, playerSign)
+  checkPlayer(turn, situation, playerSign)
   const [first, second] = situation.sort()
   switch (first) {
     case 1:
@@ -109,15 +67,45 @@ function turnFourThreat(turn, cpuSign, playerSign) {
 
 function turnFiveAttack(turn, cpuSign, playerSign) {
   let result = [false, 0]
-  cpuFivePatterns.forEach((p) => {
+  if (turn[5] === cpuSign) {
+    cpuCenterPatterns.forEach((p) => {
+      if (!result[0]) {
+        if (turn[p.cpuSign] === cpuSign) {
+          if (turn[p.playerSignsA[0]] === playerSign && turn[p.playerSignsA[1]] === playerSign) {
+            result = [true, p.optionA]
+          } else if (turn[p.playerSignsB[0]] === playerSign && turn[p.playerSignsB[1]] === playerSign) {
+            result = [true, p.optionB]
+          }
+        }
+      }
+    })
+  } else if (turn[5] === '') {
+    cpuFivePatterns.forEach((p) => {
+      if (!result[0]) {
+        if (turn[p.cpuSigns[0]] === cpuSign &&
+          turn[p.cpuSigns[1]] === cpuSign &&
+          turn[p.playerSign] === playerSign) {
+          if (turn[p.playerOptionA] === playerSign) {
+            result = [true, p.playerOptionB]
+          } else if (turn[p.playerOptionB] === playerSign) {
+            result = [true, p.playerOptionA]
+          }
+        }
+      }
+    })
+  }
+  return result
+}
+
+function turnFiveDefend(turn, cpuSign, playerSign) {
+  let result = [false, 0]
+  fiveDefendPatterns.forEach((p) => {
     if (!result[0]) {
-      if (turn[p.cpuSigns[0]] === cpuSign &&
-        turn[p.cpuSigns[0]] === cpuSign &&
-        turn[p.playerSign] === playerSign) {
-        if (turn[p.playerOptionA] === playerSign) {
-          result = [true, p.playerOptionB]
-        } else if (turn[p.playerOptionB] === playerSign) {
-          result = [true, p.playerOptionA]
+      if (turn[p.cpuSign]) {
+        if (turn[p.playerSignsA[0]] === playerSign && turn[p.playerSignsA[1]] === playerSign) {
+          result = [true, randomSet(p.optionA)]
+        } else if (turn[p.playerSignsB[0]] === playerSign && turn[p.playerSignsB[1]] === playerSign) {
+          result = [true, randomSet(p.optionB)]
         }
       }
     }
@@ -127,7 +115,8 @@ function turnFiveAttack(turn, cpuSign, playerSign) {
 
 function checkChance(turn, turnNumber, cpuSign) {
   let result = [false, 0]
-  winPat.forEach((pattern) => {
+  const randomPat = _.shuffle(winPat)
+  randomPat.forEach((pattern) => {
     if (!result[0]) {
       let free = 0
       const freeCheck = []
@@ -160,9 +149,9 @@ function checkChance(turn, turnNumber, cpuSign) {
 }
 
 function checkPlayer(turn, situation, playerSign) {
-  turn.forEach((square) => {
+  turn.forEach((square, i) => {
     if (square === playerSign) {
-      situation.push(square)
+      situation.push(i)
     }
   })
 }
@@ -190,23 +179,12 @@ export function choosingStarter() {
 export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
   const turn = [null, ...tempTurn]
   switch (turnNumber) {
+    case 1:
+      return randomSet([1, 3, 5, 7, 9])
     case 2: {
       if (turn[5] === '') return 5
       return randomSet([1, 3, 7, 9])
     }
-    case 4: {
-      const risk = checkRisk(turn, cpuSign, playerSign)
-      if (risk[0]) return risk[1]
-      const chance = checkChance(turn, turnNumber, cpuSign)
-      if (chance[0]) return chance[1]
-      const solution = turnFourThreat(turn, cpuSign, playerSign)
-      if (solution[0]) return solution[1]
-      const situation = []
-      checkSit(situation)
-      return randomSet(situation)
-    }
-    case 1:
-      return randomSet([1, 3, 5, 7, 9])
     case 3:
       if (turn[5] === '') {
         const situation = []
@@ -218,9 +196,24 @@ export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
         }
       }
       return checkChance(turn, turnNumber, cpuSign)[1]
-    case 5: {
-      const solution = turnFiveAttack(turn, cpuSign, playerSign)
+    case 4: {
+      const risk = checkRisk(turn, cpuSign, playerSign)
+      if (risk[0]) return risk[1]
+      const solution = turnFourThreat(turn, cpuSign, playerSign)
       if (solution[0]) return solution[1]
+      const chance = checkChance(turn, turnNumber, cpuSign)
+      if (chance[0]) return chance[1]
+      const situation = []
+      checkSit(situation)
+      return randomSet(situation)
+    }
+    case 5: {
+      const attack = turnFiveAttack(turn, cpuSign, playerSign)
+      if (attack[0]) return attack[1]
+      if (turn[5] === cpuSign) {
+        const defend = turnFiveDefend(turn, cpuSign, playerSign)
+        if (defend[0]) return defend[1]
+      }
     }
     // falls through
     case 6:

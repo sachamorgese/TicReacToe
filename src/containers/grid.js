@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux'
 import { addMove, nextMove, cpuMove, chooseSign, decidingTime, whoStarts, sendWinner, sendDraw, newGame, travelBack }
   from '../actions/main'
 import { Cross, Circle } from '../components/signs'
-import { winPat, cpuTurn, choosingStarter } from '../js/game_functions'
+import { cpuTurn, choosingStarter } from '../js/game_functions'
+import { winPat } from '../js/game_const'
 
 const paragrapher = (props) => {
   if (props.winner.length > 0) {
@@ -89,7 +90,7 @@ class Grid extends Component {
       </div>
     )
   }
-  makeList(index, turns) {
+  makeList(index) {
     const list = []
     for (let i = 1; i < index; i++) {
       const li = (
@@ -132,7 +133,7 @@ class Grid extends Component {
             <h3>{!this.props.signSelection && `Round ${this.props.gameNumber}`}</h3>
             <ul>
               {
-                this.makeList(this.props.turnNumber, this.props.turnsObject)
+                this.makeList(this.props.turnNumber)
               }
             </ul>
           </div>

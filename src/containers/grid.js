@@ -1,3 +1,4 @@
+// @flow
 /* eslint-disable linebreak-style */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -23,7 +24,7 @@ const paragrapher = (props) => {
   if (props.thinking && props.turnNumber > 1) return 'CPU is thinking...'
 }
 
-class Grid extends Component {
+class Grid extends Component<Props> {
   componentDidUpdate() {
     let draw = false
     let win = false

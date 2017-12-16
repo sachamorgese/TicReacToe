@@ -15,7 +15,7 @@ type turnsState = {
 }
 
 type whoseTurnState = {
-  isPlayerTurn: boolean,
+  isPlayerTurn?: boolean,
   deciding: boolean
 }
 

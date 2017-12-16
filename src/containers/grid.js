@@ -49,7 +49,7 @@ class Grid extends Component<Props> {
           const CPUMove = cpuTurn(this.props.turnNumber, this.props.turn, this.props.cpuSign, this.props.playerSign)
           this.props.cpuMove(CPUMove, this.props.cpuSign)
         }
-        if (this.props.isPlayerTurn === '' && !this.props.deciding) {
+        if (this.props.isPlayerTurn == null && !this.props.deciding) {
           this.props.whoStarts(choosingStarter())
         }
       }
@@ -85,8 +85,8 @@ class Grid extends Component<Props> {
         }>
         {!value ? '' :
           value === 'circle' ?
-            <Circle circleClass="" onClick={() => true} /> :
-            <Cross crossClass="" onClick={() => true} />}
+            <Circle circleClass="" /> :
+            <Cross crossClass="" />}
       </div>
     )
   }

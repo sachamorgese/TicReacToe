@@ -14,6 +14,14 @@ export type gridProps = {
   gameNumber: boolean,
 }
 
-export type signProps = {
-
+type circleProps = {
+  circleClass: string,
+  onClick: Function,
 }
+
+type crossProps = {
+  crossClass: string,
+  onClick: Function,
+}
+
+export type signProps = circleProps | crossProps

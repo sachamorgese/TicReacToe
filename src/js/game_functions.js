@@ -1,5 +1,8 @@
+// @flow
+
 import _ from 'lodash'
 import { winPat, fiveDefendPatterns, cpuCenterPatterns, cpuFivePatterns, cpuThreePatterns } from './game_const'
+
 
 function randomSet(set) {
   const rndm = Math.floor(Math.random() * set.length)
@@ -134,7 +137,7 @@ function checkChance(turn, turnNumber, cpuSign) {
           break
         }
         if (turn === 3 && check === 1 && free === 2) {
-          return randomSet[freeCheck]
+          result = [true, randomSet(freeCheck)]
         }
         if (turnNumber === 3 || turnNumber === 4) {
           if (check === 1 && freeCheck.length === 2) {

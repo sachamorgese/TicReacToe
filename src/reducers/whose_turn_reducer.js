@@ -3,10 +3,8 @@ import { ADD_MOVE_CPU, DECIDING, NEXT_MOVE, WHO_STARTS, WINNER, DRAW, TRAVEL_BAC
 import type ACTION from '../flow_types/action_types'
 import type { State } from '../flow_types/state_types'
 
-
 const initWhoseTurn: State =
   {
-    isPlayerTurn: false,
     deciding: false,
   }
 
@@ -29,7 +27,7 @@ export default function whoseTurnReducer(state: State = initWhoseTurn, action: A
       }
     case ADD_MOVE_CPU:
       return {
-        isPlayerTurn: state.isPlayerTurn !== '' ? action.payload.isPlayerTurn : '',
+        isPlayerTurn: state.isPlayerTurn != null ? action.payload.isPlayerTurn : null,
         deciding: false,
       }
     case TRAVEL_BACK: {
@@ -40,7 +38,6 @@ export default function whoseTurnReducer(state: State = initWhoseTurn, action: A
     case DRAW:
     case WINNER:
       return {
-        isPlayerTurn: '',
         deciding: false,
       }
     default:

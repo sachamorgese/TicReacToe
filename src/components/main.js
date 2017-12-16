@@ -1,15 +1,11 @@
 // @flow
 
 import React, { Component } from 'react'
-
 import Grid from '../containers/grid'
 
-if (process.env.NODE_ENV !== 'production') {
-  const { whyDidYouUpdate } = require('why-did-you-update')
-  whyDidYouUpdate(React)
-}
+type Props = {}
 
-class App extends Component {
+class App extends Component<Props> {
   render() {
     return (
       <div className="App">

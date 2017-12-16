@@ -1,14 +1,9 @@
 // @flow
 import { ADD_MOVE, ADD_MOVE_CPU, THINKING, START_NEW_GAME, TRAVEL_BACK } from '../actions/main'
 import type ACTION from '../flow_types/action_types'
+import type { State } from '../flow_types/state_types'
 
-type turnsState = {
-  turnNumber: number,
-  turns: {[string]: Array<string>},
-  thinking: boolean,
-}
-
-const initTurnsState =
+const initTurnsState: State =
   {
     turnNumber: 1,
     turns: {
@@ -18,7 +13,7 @@ const initTurnsState =
     thinking: false,
   }
 
-export default function turnsReducer(state: turnsState = initTurnsState, action: ACTION) {
+export default function turnsReducer(state: State = initTurnsState, action: ACTION) {
   switch (action.type) {
     case ADD_MOVE_CPU:
     case ADD_MOVE: {

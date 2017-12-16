@@ -1,4 +1,4 @@
-
+// @flow
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -18,10 +18,14 @@ export const store = createStoreWithMiddleware(
   reduxTools,
 )
 
-ReactDOM.render(
-  // Provider connects react and redux
-  <Provider store={store}>
-    <App />
-  </Provider>
-  , document.getElementById('root'),
-)
+const root = document.getElementById('root')
+
+if (root) {
+  ReactDOM.render(
+    // Provider connects react and redux
+    <Provider store={store}>
+      <App />
+    </Provider>
+    , root,
+  )
+}

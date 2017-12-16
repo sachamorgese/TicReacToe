@@ -1,8 +1,10 @@
 // @flow
 import type { ACTION } from '../flow_types/action_types'
 
+/* eslint-disable no-use-before-define */
 type ThunkAction = (dispatch: Dispatch) => any;
 type Dispatch = (action: ACTION | ThunkAction) => any;
+/* eslint-enable no-use-before-define */
 
 export const ADD_MOVE = 'add_move'
 export const NEXT_MOVE = 'next_move'

@@ -1,19 +1,16 @@
 // @flow
 import { ADD_MOVE_CPU, DECIDING, NEXT_MOVE, WHO_STARTS, WINNER, DRAW, TRAVEL_BACK } from '../actions/main'
 import type ACTION from '../flow_types/action_types'
+import type { State } from '../flow_types/state_types'
 
-type whoseTurnState = {
-  isPlayerTurn: boolean,
-  deciding: boolean
-}
 
-const initWhoseTurn: whoseTurnState =
+const initWhoseTurn: State =
   {
     isPlayerTurn: false,
     deciding: false,
   }
 
-export default function whoseTurnReducer(state: whoseTurnState = initWhoseTurn, action: ACTION) {
+export default function whoseTurnReducer(state: State = initWhoseTurn, action: ACTION) {
   switch (action.type) {
     case NEXT_MOVE:
       return {

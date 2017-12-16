@@ -1,7 +1,8 @@
+// @flow
 import React from 'react'
 
-export const Circle = (props) =>
-  (
+export const Circle = (props) => {
+  return (
     <svg width="100%" height="100%" className={props.circleClass} onClick={() => props.onClick('circle')}>
       <circle
         cx="50%" cy="50%" r="30%" stroke="green" strokeWidth="10"
@@ -9,6 +10,7 @@ export const Circle = (props) =>
       />
     </svg>
   )
+}
 export const Cross = (props) =>
   (
     <svg height="100%" width="100%" className={props.crossClass} onClick={() => props.onClick('cross')}>

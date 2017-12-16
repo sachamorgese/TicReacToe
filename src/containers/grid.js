@@ -1,5 +1,3 @@
-// @flow
-/* eslint-disable linebreak-style */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -9,6 +7,7 @@ import { addMove, nextMove, cpuMove, chooseSign, decidingTime, whoStarts, sendWi
 import { Cross, Circle } from '../components/signs'
 import { cpuTurn, choosingStarter } from '../js/game_functions'
 import { winPat } from '../js/game_const'
+import type { gridProps as Props } from '../flow_types/component_types'
 
 const paragrapher = (props) => {
   if (props.winner.length > 0) {

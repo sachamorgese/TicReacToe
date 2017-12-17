@@ -1,8 +1,8 @@
 // @flow
-
 import _ from 'lodash'
 import { winPat, fiveDefendPatterns, cpuCenterPatterns, cpuFivePatterns, cpuThreePatterns } from './game_const'
-
+import type { TurnType } from '../flow_types/state_types'
+import type { Signs } from '../flow_types/component_types'
 
 function randomSet(set) {
   const rndm = Math.floor(Math.random() * set.length)
@@ -161,7 +161,7 @@ function checkPlayer(turn, situation, playerSign) {
 
 function checkSit(turn, situation) {
   turn.forEach((square, i) => {
-    if (square === '') {
+    if (square === '' && situation) {
       situation.push(i)
     }
   })
@@ -179,7 +179,7 @@ export function choosingStarter() {
   return randomSet(['player', 'CPU'])
 }
 
-export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
+export function cpuTurn(turnNumber: number, tempTurn: TurnType, cpuSign: Signs, playerSign: Signs) {
   const turn = [null, ...tempTurn]
   switch (turnNumber) {
     case 1:
@@ -203,7 +203,7 @@ export function cpuTurn(turnNumber, tempTurn, cpuSign, playerSign) {
       const risk = checkRisk(turn, cpuSign, playerSign)
       if (risk[0]) return risk[1]
       const solution = turnFourThreat(turn, cpuSign, playerSign)
-      if (solution[0]) return solution[1]
+      if (solution && solution[0]) return solution[1]
       const chance = checkChance(turn, turnNumber, cpuSign)
       if (chance[0]) return chance[1]
       const situation = []

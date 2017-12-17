@@ -1,9 +1,13 @@
+import type { TurnType } from '../flow_types/state_types'
+
+export type Signs = 'cross' | 'circle';
+
 export type gridProps = {
-  turnsObject: {[string]: Array<string>},
-  turn: {[string]: Array<string>},
+  turnsObject: TurnType,
+  turn: TurnType,
   turnNumber: number,
-  playerSign: 'cross' | 'circle',
-  cpuSign: 'cross' | 'circle',
+  playerSign: Signs,
+  cpuSign: Signs,
   isPlayerTurn: boolean,
   signSelection: boolean,
   deciding: boolean,

@@ -1,7 +1,11 @@
+import type { Signs } from './component_types'
+
+export type TurnType = {[string]: Array<string>};
+
 type gamesState = {
   gameNumber: number,
-  playerSign: 'cross' | 'circle',
-  cpuSign: 'cross' | 'circle',
+  playerSign: Signs,
+  cpuSign: Signs,
   signSelection: boolean,
   winner: Array<number>,
   draw: boolean,
@@ -10,7 +14,7 @@ type gamesState = {
 
 type turnsState = {
   turnNumber: number,
-  turns: {[string]: Array<string>},
+  turns: TurnType,
   thinking: boolean,
 }
 

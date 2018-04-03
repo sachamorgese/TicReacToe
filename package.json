@@ -15,15 +15,15 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config webpack.prod.js",
     "eslint": "eslint src",
     "eslint:fix": "eslint src --fix",
     "fix": "run-s eslint:fix stylefmt",
     "flow": "flow",
     "lint": "run-s eslint stylelint",
-    "postinstall": "webpack -p",
+    "postinstall": "webpack --config webpack.prod.js",
     "prod": "node server.js",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
     "stylefmt": "stylefmt -r src/css/*.css -c .stylelintrc",
     "stylelint": "stylelint src/css/*.css"
   },
@@ -60,6 +60,7 @@
     "stylelint-webpack-plugin": "^0.9.0",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.2",
     "why-did-you-update": "^0.1.0"
   },
   "author": "Sacha Morgese",

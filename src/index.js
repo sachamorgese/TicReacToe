@@ -1,22 +1,17 @@
 // @flow
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
 
-import App from './components/main'
-import reducers from './reducers/main'
+import App from './components/index'
+import reducers from './reducers/index'
 
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore)
-/* eslint-disable no-underscore-dangle */
-const reduxTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-/* eslint-enable */
 
-export const store = createStoreWithMiddleware(
-  reducers,
-  reduxTools,
-)
+export const store = createStoreWithMiddleware(reducers)
 
 const root = document.getElementById('root')
 

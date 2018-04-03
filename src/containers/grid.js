@@ -1,9 +1,11 @@
+// @flow
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { addMove, nextMove, cpuMove, chooseSign, decidingTime, whoStarts, sendWinner, sendDraw, newGame, travelBack }
-  from '../actions/main'
+  from '../actions/index'
 import { Cross, Circle } from '../components/signs'
 import { cpuTurn, choosingStarter } from '../js/game_functions'
 import { winPat } from '../js/game_const'

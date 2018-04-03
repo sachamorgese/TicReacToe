@@ -1,5 +1,5 @@
 // @flow
-import { ADD_MOVE, ADD_MOVE_CPU, THINKING, START_NEW_GAME, TRAVEL_BACK } from '../actions/main'
+import { ADD_MOVE, ADD_MOVE_CPU, THINKING, START_NEW_GAME, TRAVEL_BACK } from '../actions'
 import type ACTION from '../flow_types/action_types'
 import type { State } from '../flow_types/state_types'
 

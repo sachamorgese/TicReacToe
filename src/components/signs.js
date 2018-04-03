@@ -1,4 +1,5 @@
 // @flow
+
 import React from 'react'
 import type { signProps as Props } from '../flow_types/component_types'
 

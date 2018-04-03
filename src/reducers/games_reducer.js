@@ -1,5 +1,5 @@
 // @flow
-import { CHOOSE_SIGN, WHO_STARTS, WINNER, START_NEW_GAME, DRAW } from '../actions/main'
+import { CHOOSE_SIGN, WHO_STARTS, WINNER, START_NEW_GAME, DRAW } from '../actions'
 import type ACTION from '../flow_types/action_types'
 import type { State } from '../flow_types/state_types'
 

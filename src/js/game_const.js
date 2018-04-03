@@ -1,3 +1,5 @@
+// @flow
+
 export const winPat = [
   [1, 2, 3],
   [1, 4, 7],

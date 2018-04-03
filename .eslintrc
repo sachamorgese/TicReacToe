@@ -22,7 +22,8 @@
     "import",
     "react",
     "dependencies",
-    "flowtype"
+    "flowtype",
+    "flowtype-errors"
   ],
 
   "globals": {
@@ -145,6 +146,7 @@
     "flowtype/space-after-type-colon": ["error", "always"],
     "flowtype/space-before-type-colon": ["error", "never"],
     "flowtype/object-type-delimiter": ["error", "comma"],
+    "flowtype-errors/show-errors": 2,
 
     // coding styles
     "max-len": ["error", 120]

@@ -1,6 +1,9 @@
+// @flow
 import { CHOOSE_SIGN, WHO_STARTS, WINNER, START_NEW_GAME, DRAW } from '../actions/main'
+import type ACTION from '../flow_types/action_types'
+import type { State } from '../flow_types/state_types'
 
-const initGamesState =
+const initGamesState: State =
   {
     gameNumber: 1,
     playerSign: '',
@@ -11,7 +14,7 @@ const initGamesState =
     gameStarted: false,
   }
 
-export default function gamesReducer(state = initGamesState, action) {
+export default function gamesReducer(state: State = initGamesState, action: ACTION) {
   switch (action.type) {
     case CHOOSE_SIGN:
       return {

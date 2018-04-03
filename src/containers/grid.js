@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -8,6 +7,7 @@ import { addMove, nextMove, cpuMove, chooseSign, decidingTime, whoStarts, sendWi
 import { Cross, Circle } from '../components/signs'
 import { cpuTurn, choosingStarter } from '../js/game_functions'
 import { winPat } from '../js/game_const'
+import type { gridProps as Props } from '../flow_types/component_types'
 
 const paragrapher = (props) => {
   if (props.winner.length > 0) {
@@ -23,7 +23,7 @@ const paragrapher = (props) => {
   if (props.thinking && props.turnNumber > 1) return 'CPU is thinking...'
 }
 
-class Grid extends Component {
+class Grid extends Component<Props> {
   componentDidUpdate() {
     let draw = false
     let win = false
@@ -49,7 +49,7 @@ class Grid extends Component {
           const CPUMove = cpuTurn(this.props.turnNumber, this.props.turn, this.props.cpuSign, this.props.playerSign)
           this.props.cpuMove(CPUMove, this.props.cpuSign)
         }
-        if (this.props.isPlayerTurn === '' && !this.props.deciding) {
+        if (this.props.isPlayerTurn == null && !this.props.deciding) {
           this.props.whoStarts(choosingStarter())
         }
       }
@@ -85,8 +85,8 @@ class Grid extends Component {
         }>
         {!value ? '' :
           value === 'circle' ?
-            <Circle circleClass="" onClick={() => true} /> :
-            <Cross crossClass="" onClick={() => true} />}
+            <Circle circleClass="" /> :
+            <Cross crossClass="" />}
       </div>
     )
   }

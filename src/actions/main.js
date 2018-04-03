@@ -1,3 +1,11 @@
+// @flow
+import type { ACTION } from '../flow_types/action_types'
+
+/* eslint-disable no-use-before-define */
+type ThunkAction = (dispatch: Dispatch) => any;
+type Dispatch = (action: ACTION | ThunkAction) => any;
+/* eslint-enable no-use-before-define */
+
 export const ADD_MOVE = 'add_move'
 export const NEXT_MOVE = 'next_move'
 export const CHOOSE_SIGN = 'choose_sign'
@@ -10,7 +18,7 @@ export const START_NEW_GAME = 'start_new_game'
 export const DRAW = 'draw'
 export const TRAVEL_BACK = 'travel_back'
 
-export function addMove(index, sign, increaseTurn) {
+export function addMove(index: number, sign: string, increaseTurn: boolean) {
   return {
     type: ADD_MOVE,
     payload: {
@@ -33,8 +41,8 @@ function addMoveCpu(index, sign) {
   }
 }
 
-export function cpuMove(index, sign) {
-  return (dispatch) => {
+export function cpuMove(index: number, sign: string) {
+  return (dispatch: Dispatch) => {
     dispatch(thinking())
     setTimeout(() => {
       dispatch(addMoveCpu(index, sign))
@@ -48,7 +56,7 @@ export function nextMove() {
   }
 }
 
-export function chooseSign(sign) {
+export function chooseSign(sign: string) {
   const payload = {
     playerSign: sign,
     cpuSign: sign === 'circle' ? 'cross' : 'circle',
@@ -71,8 +79,8 @@ export function thinking() {
   }
 }
 
-export function whoStarts(starter) {
-  return (dispatch) => {
+export function whoStarts(starter: string) {
+  return (dispatch: Dispatch) => {
     dispatch(decidingTime())
     setTimeout(() => {
       dispatch(start(starter))
@@ -91,7 +99,7 @@ function start(starter) {
   }
 }
 
-export function sendWinner(winner) {
+export function sendWinner(winner: Array<number>) {
   return {
     type: WINNER,
     payload: winner,
@@ -111,14 +119,14 @@ function startNewGame() {
 }
 
 export function newGame() {
-  return (dispatch) => {
+  return (dispatch: Dispatch) => {
     setTimeout(() => {
       dispatch(startNewGame())
     }, 3000)
   }
 }
 
-export function travelBack(oldTurnNumber, currentTurnNumber) {
+export function travelBack(oldTurnNumber: number, currentTurnNumber: number) {
   const playerStarted = currentTurnNumber % 2 !== 0
   return {
     type: TRAVEL_BACK,

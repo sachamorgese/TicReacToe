@@ -1,12 +1,14 @@
+// @flow
 import { ADD_MOVE_CPU, DECIDING, NEXT_MOVE, WHO_STARTS, WINNER, DRAW, TRAVEL_BACK } from '../actions/main'
+import type ACTION from '../flow_types/action_types'
+import type { State } from '../flow_types/state_types'
 
-const initWhoseTurn =
+const initWhoseTurn: State =
   {
-    isPlayerTurn: '',
     deciding: false,
   }
 
-export default function whoseTurnReducer(state = initWhoseTurn, action) {
+export default function whoseTurnReducer(state: State = initWhoseTurn, action: ACTION) {
   switch (action.type) {
     case NEXT_MOVE:
       return {
@@ -25,7 +27,7 @@ export default function whoseTurnReducer(state = initWhoseTurn, action) {
       }
     case ADD_MOVE_CPU:
       return {
-        isPlayerTurn: state.isPlayerTurn !== '' ? action.payload.isPlayerTurn : '',
+        isPlayerTurn: state.isPlayerTurn != null ? action.payload.isPlayerTurn : null,
         deciding: false,
       }
     case TRAVEL_BACK: {
@@ -36,7 +38,6 @@ export default function whoseTurnReducer(state = initWhoseTurn, action) {
     case DRAW:
     case WINNER:
       return {
-        isPlayerTurn: '',
         deciding: false,
       }
     default:
